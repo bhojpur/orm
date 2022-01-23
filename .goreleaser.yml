@@ -1,0 +1,61 @@
+before:
+  hooks:
+    - go generate -v ./...
+builds:
+- id: ormsvr
+  env:
+  - CGO_ENABLED=0
+  main: server.go
+  binary: ormsvr
+  ldflags:
+  - -s -w -X github.com/bhojpur/orm/cmd/server.version={{.Version}}-{{.ShortCommit}}
+- id: ormctl
+  env:
+  - CGO_ENABLED=0
+  main: client.go
+  binary: ormctl
+  flags:
+    - -tags=ormctl
+  ldflags:
+  - -s -w -X github.com/bhojpur/orm/cmd/client.version={{.Version}}-{{.ShortCommit}}
+archives:
+- id: ormsvr
+  replacements:
+    darwin: Darwin
+    linux: Linux
+    386: i386
+    amd64: x86_64
+  builds:
+  - ormsvr
+- id: ormctl
+  files:
+  - "none*"
+  format: binary
+  builds:
+  - ormctl
+  replacements:
+    darwin: Darwin
+    linux: Linux
+    386: i386
+    amd64: x86_64
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  name_template: "{{ .Tag }}-next"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+    - '^docs:'
+    - '^test:'
+release:
+  prerelease: auto
+dockers:
+  - goos: linux
+    goarch: amd64
+    goarm: ''
+    dockerfile: Dockerfile
+    image_templates:
+    - "ghcr.io/bhojpur/orm:{{ .Tag }}"
+    extra_files:
+    - README.md
