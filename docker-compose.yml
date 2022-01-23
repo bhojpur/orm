@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  mysql:
+    image: 'mysql:latest'
+    ports:
+      - 9910:3306
+    environment:
+      - MYSQL_DATABASE=bhojpur
+      - MYSQL_USER=bhojpur
+      - MYSQL_PASSWORD=bhojpur
+      - MYSQL_RANDOM_ROOT_PASSWORD="yes"
+  postgres:
+    image: 'postgres:latest'
+    ports:
+      - 9920:5432
+    environment:
+      - POSTGRES_USER=bhojpur
+      - POSTGRES_DB=bhojpur
+      - POSTGRES_PASSWORD=bhojpur
+  mssql:
+    image: 'mcmoe/mssqldocker:latest'
+    ports:
+      - 9930:1433
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=LoremIpsum86
+      - MSSQL_DB=bhojpur
+      - MSSQL_USER=bhojpur
+      - MSSQL_PASSWORD=LoremIpsum86

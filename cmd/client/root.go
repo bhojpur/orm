@@ -62,7 +62,7 @@ var rootCmdOpts struct {
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "ormctl",
-	Short: "Bhojpur Ormctl is an object relationship mapping command engine",
+	Short: "Bhojpur ORM Client is a versatile Object Relationship Mapping commander",
 	PersistentPreRun: func(cmd *cobra.Command, args []string) {
 		if verbose {
 			log.SetLevel(log.DebugLevel)

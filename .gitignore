@@ -5,6 +5,10 @@
 *.swo
 bhojpur.iml
 
+documents
+coverage.txt
+_book
+
 test/tmp/
 
 my save path/

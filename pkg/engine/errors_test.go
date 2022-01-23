@@ -1,4 +1,4 @@
-package cmd
+package engine_test
 
 // Copyright (c) 2018 Bhojpur Consulting Private Limited, India. All rights reserved.
 
@@ -21,40 +21,20 @@ package cmd
 // THE SOFTWARE.
 
 import (
-	"fmt"
-	"os"
+	"errors"
+	"testing"
 
-	log "github.com/sirupsen/logrus"
-	"github.com/spf13/cobra"
+	orm "github.com/bhojpur/orm/pkg/engine"
 )
 
-var verbose bool
+func TestErrorsCanBeUsedOutsideOrm(t *testing.T) {
+	errs := []error{errors.New("First"), errors.New("Second")}
 
-// rootCmd represents the base command when called without any subcommands
-var rootCmd = &cobra.Command{
-	Use:   "ormsvr",
-	Short: "Bhojpur ObjectEngine is a high performance, data model Object Relationship Mapping processor",
-	PersistentPreRun: func(cmd *cobra.Command, args []string) {
-		if verbose {
-			log.SetLevel(log.DebugLevel)
-			log.Debug("verbose logging enabled")
-		}
-	},
+	gErrs := orm.Errors(errs)
+	gErrs = gErrs.Add(errors.New("Third"))
+	gErrs = gErrs.Add(gErrs)
 
-	// Uncomment the following line if your bare application
-	// has an action associated with it:
-	//	Run: func(cmd *cobra.Command, args []string) { },
-}
-
-// Execute adds all child commands to the root command and sets flags appropriately.
-// This is called by main.main(). It only needs to happen once to the rootCmd.
-func Execute() {
-	if err := rootCmd.Execute(); err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+	if gErrs.Error() != "First; Second; Third" {
+		t.Fatalf("Gave wrong error, got %s", gErrs.Error())
 	}
-}
-
-func init() {
-	rootCmd.PersistentFlags().BoolVar(&verbose, "verbose", false, "en/disable verbose logging")
 }
