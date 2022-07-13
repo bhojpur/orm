@@ -10,7 +10,7 @@ require (
 	github.com/mattn/go-sqlite3 v1.14.10
 	github.com/sirupsen/logrus v1.8.1
 	github.com/spf13/cobra v1.3.0
-	google.golang.org/grpc v1.43.0
+	google.golang.org/grpc v1.48.0
 	google.golang.org/protobuf v1.27.1
 	k8s.io/apimachinery v0.23.1
 	k8s.io/client-go v1.5.2
