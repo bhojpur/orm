@@ -5,7 +5,7 @@ go 1.17
 require (
 	github.com/denisenkom/go-mssqldb v0.12.0
 	github.com/erikstmartin/go-testdb v0.0.0-20160219214506-8d10e4a1bae5
-	github.com/go-sql-driver/mysql v1.6.0
+	github.com/go-sql-driver/mysql v1.8.1
 	github.com/lib/pq v1.10.4
 	github.com/mattn/go-sqlite3 v1.14.10
 	github.com/sirupsen/logrus v1.8.1
@@ -18,6 +18,7 @@ require (
 
 require (
 	cloud.google.com/go/compute v1.0.0 // indirect
+	filippo.io/edwards25519 v1.1.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/docker/spdystream v0.1.0 // indirect
 	github.com/go-logr/logr v1.2.2 // indirect
